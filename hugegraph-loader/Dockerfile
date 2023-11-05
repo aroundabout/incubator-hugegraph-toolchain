@@ -5,11 +5,15 @@ RUN set -x \
     && apt-get clean
 
 COPY . /pkg
-WORKDIR /pkg
+RUN echo "$(ls)"
 
-RUN set -x \
-    && cd /pkg/hugegraph-loader/ \
-    && mvn package -e -B -ntp -DskipTests -Dmaven.javadoc.skip=true
+WORKDIR /pkg
+RUN echo "$(ls)"
+
+RUN set -x 
+RUN cd /pkg/hugegraph-loader/ 
+RUN mvn install -pl hugegraph-client,hugegraph-loader -am -Dmaven.javadoc.skip=true -DskipTests -ntp
+RUN mvn package -e -B -ntp -DskipTests -Dmaven.javadoc.skip=true
 
 FROM openjdk:11-slim
 
