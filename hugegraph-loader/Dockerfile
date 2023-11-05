@@ -12,8 +12,8 @@ RUN echo "$(ls)"
 WORKDIR /pkg
 RUN echo "$(ls)"
 
-# RUN set -x 
-# RUN mvn install -pl hugegraph-client,hugegraph-loader -am -Dmaven.javadoc.skip=true -DskipTests -ntp
+RUN set -x \
+    && mvn install -pl hugegraph-client,hugegraph-loader -am -Dmaven.javadoc.skip=true -DskipTests -ntp
 # RUN cd /pkg/hugegraph-loader/ 
 # RUN echo "$(ls)"
 
