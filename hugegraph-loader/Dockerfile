@@ -2,6 +2,8 @@ FROM maven:3.9.0-eclipse-temurin-11 AS build
 
 RUN set -x \
     && apt-get -q update \
+    && apt-get install -y nodejs npm \
+    && npm install --global yarn \
     && apt-get clean
 
 COPY . /pkg
