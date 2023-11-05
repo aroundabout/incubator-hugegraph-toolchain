@@ -12,16 +12,25 @@ RUN echo "$(ls)"
 WORKDIR /pkg
 RUN echo "$(ls)"
 
-RUN set -x 
+# RUN set -x 
 # RUN mvn install -pl hugegraph-client,hugegraph-loader -am -Dmaven.javadoc.skip=true -DskipTests -ntp
-RUN cd /pkg/hugegraph-loader/ 
+# RUN cd /pkg/hugegraph-loader/ 
+# RUN echo "$(ls)"
+
+RUN set -x \
+    && cd /pkg/hugegraph-loader/ \
+    && echo "$(ls)" \
+    && mvn clean package -DskipTests
+
 RUN echo "$(ls)"
-RUN mvn clean package -DskipTests
-RUN echo "$(ls)"
+
+RUN cd /pkg/hugegraph-loader/ \
+    && echo "$(ls)" 
 
 FROM openjdk:11-slim
 
 COPY --from=build /pkg/hugegraph-loader/apache-hugegraph-loader-incubating-*/ /loader
+COPY --from=build /pkg/hugegraph-loader/apache-hugegraph-toolchain-incubating-*/ /toolchain
 WORKDIR /loader/
 
 # ENTRYPOINT ["./bin/start-hubble.sh", "-f true"]
