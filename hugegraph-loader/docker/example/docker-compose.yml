@@ -16,4 +16,5 @@ services:
     image: dandelionivy/loader
     container_name: loader
     volumes:
-      - ~/loader/file:/loader/file
+      - /path/to/data/file:/loader/file
+    tty: true
