@@ -2,9 +2,13 @@ FROM maven:3.9.0-eclipse-temurin-11 AS build
 
 RUN set -x \
     && apt-get -q update \
-    && apt-get clean \
     && apt-get -q install -y --no-install-recommends --no-install-suggests \
-       dumb-init 
+       dumb-init \
+       procps \
+       curl \
+       lsof \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . /pkg
 WORKDIR /pkg

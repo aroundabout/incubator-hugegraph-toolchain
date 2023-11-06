@@ -12,7 +12,7 @@ services:
     ports:
       - 8088:8088
 
-  hubble:
+  loader:
     image: dandelionivy/loader
     container_name: loader
     volumes:
